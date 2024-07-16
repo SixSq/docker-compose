@@ -1,4 +1,4 @@
-module github.com/docker/compose/v2
+module github.com/SixSq/docker-compose/v2
 
 go 1.21
 
