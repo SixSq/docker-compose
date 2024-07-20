@@ -190,7 +190,6 @@ jobs:
         uses: mxschmitt/action-tmate@8b4e4ac71822ed7e0ad5fb3d1c33483e9e8fb270 # v3.11
         with:
           limit-access-to-actor: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Test plugin mode
         if: ${{ matrix.mode == 'plugin' }}
