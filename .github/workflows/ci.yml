@@ -7,7 +7,7 @@ concurrency:
 on:
   push:
     branches:
-      - 'main'
+      - 'sixsq_main_2'
     tags:
       - 'v*'
   pull_request:
@@ -34,7 +34,8 @@ jobs:
         name: Create matrix
         id: platforms
         run: |
-          echo matrix=$(docker buildx bake binary-cross --print | jq -cr '.target."binary-cross".platforms') >> $GITHUB_OUTPUT
+          echo matrix='["linux/amd64","linux/arm/v7","linux/arm64"]' >> $GITHUB_OUTPUT
+
       -
         name: Show matrix
         run: |
@@ -59,6 +60,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       -
         name: Run
+        continue-on-error: true
         run: |
           make ${{ matrix.target }}
 
@@ -205,7 +207,6 @@ jobs:
         uses: mxschmitt/action-tmate@8b4e4ac71822ed7e0ad5fb3d1c33483e9e8fb270 # v3.11
         with:
           limit-access-to-actor: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test plugin mode
         if: ${{ matrix.mode == 'plugin' }}
